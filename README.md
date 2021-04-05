@@ -1,1 +1,1 @@
-# projet_algoprog2
+# Projet AlgoProg2
