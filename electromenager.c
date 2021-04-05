@@ -71,7 +71,6 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 				tableau[Autre].tete=obj;
 			}
 		}
-		free(obj);
 		fclose(fichier);
 	}
 	else
@@ -94,7 +93,41 @@ void afficherObjet(Objet *objet)
 	printf("Nom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation :%d\n\n",objet->nom,objet->puissance,objet->priorite,objet->consommation);
 }
 
-
+void parcoursCat(Liste tableau[],Liste *maison,int cat)
+{
+	Objet *obj=tableau[cat].tete;
+	
+	Objet *temporaire;
+	temporaire=(Objet*)malloc(sizeof(Objet));
+	
+	while(obj!=NULL)
+	{
+		strcpy(temporaire->nom,obj->nom);
+		temporaire->puissance=obj->puissance;
+		
+		printf("Voulez-vous l'appareil suivant dans votre maison : %s ? o/n\n",temporaire->nom);
+		char choix[3];
+		scanf("%s",choix);
+		if (strcmp(choix,"o")==0)
+		{
+			temporaire->suiv=maison->tete;
+			maison->tete=temporaire;
+		
+			int priorite;
+			printf("Donnez un ordre de priorité :\n");
+			scanf("%d",&priorite);
+			temporaire->priorite=priorite;
+			
+			int conso_h;
+			printf("Donnez moyenne d'utilisation par semaine (en heures) :\n");
+			scanf("%d",&conso_h);
+			temporaire->consommation=conso_h;
+		}
+		obj=obj->suiv;
+	}
+}
+			
+			
 
 
 /**************************************************************
@@ -139,7 +172,7 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
 }
 		
 	
-void equiperMaison(Liste *liste,Liste *maison)
+void equiperMaison(Liste tableau[],Liste *maison)
 {
 	bool quitter=false;
 	int choix;
@@ -160,10 +193,10 @@ void equiperMaison(Liste *liste,Liste *maison)
 		switch(choix)
 		{
 			case 0:
-				//rechercheCat(liste,maison);
+				rechercheCat(tableau,maison);
 				break;
 			case 1:
-				//rechercheNom(liste,maison);
+				//rechercheNom(tableau,maison);
 				break;
 			case 2:
 				//ajouterObj(maison);
@@ -184,13 +217,14 @@ void equiperMaison(Liste *liste,Liste *maison)
 	}
 }
 
-void rechercheCat(Liste *liste,Liste *maison)
+void rechercheCat(Liste tableau[],Liste *maison)
 {
 	int choix;
 	bool quitter=false;
 	
 	while(!quitter)
 	{
+		printf("\n");
 		printf("Choisir la categorie\n");
 		printf("0 Bureau\n");
 		printf("1 Cuisine\n");
@@ -203,16 +237,16 @@ void rechercheCat(Liste *liste,Liste *maison)
 		switch(choix)
 		{
 			case 0:
-				//parcoursCat(liste,maison,"Bureau");
+				parcoursCat(tableau,maison,Bureau);
 				break;
 			case 1:
-				//parcoursCat(liste,maison,"Bureau");
+				parcoursCat(tableau,maison,Cuisine);
 				break;
 			case 2:
-				//parcoursCat(liste,maison,"Bureau");
+				parcoursCat(tableau,maison,Entretien);
 				break;
 			case 3:
-				//parcoursCat(liste,maison,"Bureau");
+				parcoursCat(tableau,maison,Autre);
 				break;
 			case 4:
 				quitter=true;

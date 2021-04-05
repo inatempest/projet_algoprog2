@@ -46,8 +46,9 @@ void lireFicElec(Liste tableau[],const char* nomFic);
 void afficherListeCat(Liste tableau[],int cat);
 void afficherObjet(Objet *objet);
 
-void rechercheCat(Liste *liste,Liste *maison);
+void parcoursCat(Liste tableau[],Liste *maison,int cat);
 
 void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison);
-void equiperMaison(Liste *liste,Liste *maison);
+void equiperMaison(Liste tableau[],Liste *maison);
+void rechercheCat(Liste tableau[],Liste *maison);
 #endif
