@@ -105,11 +105,11 @@ void parcoursCat(Liste tableau[],Liste *maison,int cat)
 {
 	Objet *obj=tableau[cat].tete;
 	
-	Objet *temporaire;
-	temporaire=(Objet*)malloc(sizeof(Objet));
 	
 	while(obj!=NULL)
 	{
+		Objet *temporaire;
+		temporaire=(Objet*)malloc(sizeof(Objet));
 		strcpy(temporaire->nom,obj->nom);
 		temporaire->puissance=obj->puissance;
 		
@@ -119,7 +119,7 @@ void parcoursCat(Liste tableau[],Liste *maison,int cat)
 		if (strcmp(choix,"o")==0)
 		{
 			ajouterObjMaison(maison,temporaire);
-			
+			afficherListe(maison);
 		}
 		obj=obj->suiv;
 	}
