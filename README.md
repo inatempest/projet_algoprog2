@@ -16,7 +16,7 @@
 - [x] Recherche par catégorie 
 - [x] Ajouter un appareil manuellement
 - [x] Afficher mes appareils
-- [ ] Enregistrer ma liste
+- [x] Enregistrer ma liste
 - [x] Supprimer un appareil de la liste
 
 #### Menu à définir
