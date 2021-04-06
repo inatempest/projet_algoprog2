@@ -14,7 +14,7 @@
 #### Menu "Equiper sa maison"
 - [x] Recherche par nom
 - [x] Recherche par catégorie
-- [ ] Ajouter un appareil manuellement
+- [x] Ajouter un appareil manuellement
 - [ ] Afficher mes appareils
 - [ ] Enregistrer ma liste
 - [ ] Supprimer un appareil de la liste
