@@ -13,9 +13,9 @@
 
 #### Menu "Equiper sa maison"
 - [x] Recherche par nom
-- [x] Recherche par catégorie
+- [x] Recherche par catégorie **//problème, semble marcher mais les appareils ajoutés buggent dans la fonction afficher mes appareils**
 - [x] Ajouter un appareil manuellement
-- [ ] Afficher mes appareils
+- [x] Afficher mes appareils
 - [ ] Enregistrer ma liste
 - [ ] Supprimer un appareil de la liste
 
