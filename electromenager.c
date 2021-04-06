@@ -72,7 +72,7 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 		fclose(fichier);
 	}
 	else
-		printf("Désolé, le fichier est introuvable :(");
+		printf("\nDésolé, le fichier est introuvable :(\n");
 }
 	
 
@@ -98,7 +98,7 @@ void afficherListe(Liste *liste)
 
 void afficherObjet(Objet *objet)
 {
-	printf("Nom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation :%d\n\n",objet->nom,objet->puissance,objet->priorite,objet->consommation);
+	printf("Nom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation : %d\n\n",objet->nom,objet->puissance,objet->priorite,objet->consommation);
 }
 
 void parcoursCat(Liste tableau[],Liste *maison,int cat)
@@ -119,7 +119,6 @@ void parcoursCat(Liste tableau[],Liste *maison,int cat)
 		if (strcmp(choix,"o")==0)
 		{
 			ajouterObjMaison(maison,temporaire);
-			afficherListe(maison);
 		}
 		obj=obj->suiv;
 	}
@@ -157,7 +156,7 @@ void rechercheNom(Liste tableau[],Liste *maison)
 				obj=obj->suiv;
 			}
 		}
-	printf("Désolé, l'appareil n'a pas été trouvé :(\n");		
+	printf("\nDésolé, l'appareil n'a pas été trouvé :(\n");		
 }
 
 void ajouterObjMaison(Liste *maison,Objet *objet)
@@ -166,12 +165,12 @@ void ajouterObjMaison(Liste *maison,Objet *objet)
 	maison->tete=objet;
 	
 	int priorite;
-	printf("Donnez un ordre de priorité :\n");
+	printf("Donnez un ordre de priorité : \n");
 	scanf("%d",&priorite);
 	objet->priorite=priorite;
 			
 	int conso_h;
-	printf("Donnez moyenne d'utilisation par jour (en heures) :\n");
+	printf("Donnez moyenne d'utilisation par jour (en heures) : \n");
 	scanf("%d",&conso_h);
 	objet->consommation=conso_h;
 }
@@ -183,6 +182,11 @@ void ajouterObjMan(Liste *maison)
 	
 	printf("Donner le nom de l'appareil : \n");
 	scanf("%s",objet->nom);
+	
+	int priorite;
+	printf("Donnez sa puissance (W) : \n");
+	scanf("%d",&priorite);
+	objet->priorite=priorite;
 	
 	ajouterObjMaison(maison,objet);
 }
@@ -201,6 +205,7 @@ void supprimerObj(Liste *maison)
 		temp=courant;
 		maison->tete=courant->suiv;
 		free(temp);
+		return;
 	}
 	
 	courant=courant->suiv;
@@ -209,7 +214,7 @@ void supprimerObj(Liste *maison)
 	{
 		if(strcmp(courant->nom,suppr)==0)
 		{
-			printf("Voulez-vous vraiment supprimer %s de votre liste ? o/n",courant->nom);
+			printf("Voulez-vous vraiment supprimer %s de votre liste ? o/n\n",courant->nom);
 			char choix[3];
 			scanf("%s",choix);
 			if (strcmp(choix,"o")==0)
@@ -217,15 +222,13 @@ void supprimerObj(Liste *maison)
 				temp=courant;
 				prec->suiv=courant->suiv;
 				free(temp);
-				break;
+				return;
 			}
-			else
-				break;
 		}
 		courant=courant->suiv;
 		prec=prec->suiv;
 	}
-	printf("Nous n'avons pas trouvé l'appareil à supprimer :(");
+	printf("\nNous n'avons pas trouvé l'appareil à supprimer :(\n");
 }
 			
 
@@ -260,9 +263,13 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
 		switch(choix)
 		{
 			case 0:
+				printf("******BUREAU******\n");
 				afficherListeCat(tableau,Bureau);
+				printf("******CUISINE******\n");
 				afficherListeCat(tableau,Cuisine);
+				printf("******ENTRETIEN******\n");
 				afficherListeCat(tableau,Entretien);
+				printf("******AUTRE******\n");
 				afficherListeCat(tableau,Autre);
 				break;
 			case 1:
@@ -291,7 +298,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 		printf("4 Enregistrer ma liste\n");
 		printf("5 Supprimer un appareil de la liste\n");
 		printf("6 Quitter\n");
-		printf("Choix :");
+		printf("Choix : ");
 		scanf("%d",&choix);
 		
 		switch(choix)
@@ -312,7 +319,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 				//enregistrerListe(maison,"MaMaison.csv");
 				break;
 			case 5:
-				//supprimerObj(maison);
+				supprimerObj(maison);
 				break;
 			case 6:
 				quitter=true;
