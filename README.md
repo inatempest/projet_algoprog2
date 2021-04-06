@@ -4,7 +4,7 @@
 
 #### Menu principal
 - [x] Voir l'inventaire disponible
-- [ ] Equiper sa maison
+- [x] Equiper sa maison
 - [ ] Nb de panneaux solaires nécessaires pour équiper tous les appareils voulus
 - [ ] Optimisation panneaux solaires/appareils
 - [ ] Cout installation panneaux solaires (???)
