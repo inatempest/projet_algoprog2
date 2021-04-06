@@ -48,6 +48,7 @@ void afficherObjet(Objet *objet);
 void ajouterObjMaison(Liste *maison,Objet *objet);
 void parcoursCat(Liste tableau[],Liste *maison,int cat);
 void rechercheNom(Liste tableau[],Liste *maison);
+void ajouterObjMan(Liste *maison);
 
 
 void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison);

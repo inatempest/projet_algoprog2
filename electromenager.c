@@ -147,7 +147,7 @@ void rechercheNom(Liste tableau[],Liste *maison)
 				obj=obj->suiv;
 			}
 		}
-	printf("Désolée, l'appareil n'a pas été trouvé :(\n");		
+	printf("Désolé, l'appareil n'a pas été trouvé :(\n");		
 }
 
 void ajouterObjMaison(Liste *maison,Objet *objet)
@@ -161,9 +161,20 @@ void ajouterObjMaison(Liste *maison,Objet *objet)
 	objet->priorite=priorite;
 			
 	int conso_h;
-	printf("Donnez moyenne d'utilisation par semaine (en heures) :\n");
+	printf("Donnez moyenne d'utilisation par jour (en heures) :\n");
 	scanf("%d",&conso_h);
 	objet->consommation=conso_h;
+}
+
+void ajouterObjMan(Liste *maison)
+{
+	Objet *objet;
+	objet=(Objet*)malloc(sizeof(Objet));
+	
+	printf("Donner le nom de l'appareil : \n");
+	scanf("%s",objet->nom);
+	
+	ajouterObjMaison(maison,objet);
 }
 			
 
@@ -241,7 +252,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 				rechercheNom(tableau,maison);
 				break;
 			case 2:
-				//ajouterObj(maison);
+				ajouterObjMan(maison);
 				break;
 			case 3:
 				//afficherListe(maison);
