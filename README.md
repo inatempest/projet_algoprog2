@@ -13,11 +13,11 @@
 
 #### Menu "Equiper sa maison"
 - [x] Recherche par nom
-- [x] Recherche par catégorie **//problème, semble marcher mais les appareils ajoutés buggent dans la fonction afficher mes appareils**
+- [x] Recherche par catégorie 
 - [x] Ajouter un appareil manuellement
 - [x] Afficher mes appareils
 - [ ] Enregistrer ma liste
-- [ ] Supprimer un appareil de la liste
+- [x] Supprimer un appareil de la liste
 
 #### Menu à définir
 
