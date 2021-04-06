@@ -20,7 +20,6 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 {
 	FILE *fichier;
 	fichier=fopen(nomFic,"r");
-	//char categories[4][10]={"Bureau","Cuisine","Entretien","Autre"};
 		
 	if(fichier!=NULL)
 	{	
@@ -39,7 +38,7 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 			sscanf(ptr_chaine,"%s",categorie);
 			ptr_chaine=strtok(NULL,";");
 			//nom de l'objet
-			sscanf(ptr_chaine,"%s",obj->nom);
+			sscanf(ptr_chaine,"%[^\t\n]",obj->nom); //force sscanf à ne s'arrêter qu'à une tab ou retour à la ligne
 			ptr_chaine=strtok(NULL,";");
 			//puissance de l'objet
 			sscanf(ptr_chaine,"%d",&obj->puissance);
@@ -126,12 +125,23 @@ void parcoursCat(Liste tableau[],Liste *maison,int cat)
 		obj=obj->suiv;
 	}
 }
-			
+
+/*void rechercheNom(Liste tableau[],Liste *maison)
+{
+	printf("Donnez le nom ou les premières lettres de l'appareil recherché : ");
+	char lettres[LG_MAX];
+	scanf("%s",lettres);
+	int taille=strlen(lettres);
+}*/
 			
 
 
 /**************************************************************
+
+
 	Menus et sous-menus
+	
+	
 ***************************************************************/
 
 void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
