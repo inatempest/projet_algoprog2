@@ -50,21 +50,25 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 			//placement dans la bonne liste chaînée
 			if (strcmp(categorie,"Bureau")==0)
 			{
+				obj->categorie=Bureau;
 				obj->suiv=tableau[Bureau].tete;
 				tableau[Bureau].tete=obj;
 			}
 			else if (strcmp(categorie,"Cuisine")==0)
 			{
+				obj->categorie=Cuisine;
 				obj->suiv=tableau[Cuisine].tete;
 				tableau[Cuisine].tete=obj;
 			}
 			else if (strcmp(categorie,"Entretien")==0)
 			{
+				obj->categorie=Entretien;
 				obj->suiv=tableau[Entretien].tete;
 				tableau[Entretien].tete=obj;
 			}
 			else if (strcmp(categorie,"Autre")==0)
 			{
+				obj->categorie=Autre;
 				obj->suiv=tableau[Autre].tete;
 				tableau[Autre].tete=obj;
 			}
@@ -98,7 +102,7 @@ void afficherListe(Liste *liste)
 
 void afficherObjet(Objet *objet)
 {
-	printf("Nom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation : %d\n\n",objet->nom,objet->puissance,objet->priorite,objet->consommation);
+	printf("Categorie: %d \nNom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation : %d\n\n",objet->categorie,objet->nom,objet->puissance,objet->priorite,objet->consommation);
 }
 
 void parcoursCat(Liste tableau[],Liste *maison,int cat)
@@ -112,6 +116,7 @@ void parcoursCat(Liste tableau[],Liste *maison,int cat)
 		temporaire=(Objet*)malloc(sizeof(Objet));
 		strcpy(temporaire->nom,obj->nom);
 		temporaire->puissance=obj->puissance;
+		temporaire->categorie=obj->categorie;
 		
 		printf("Voulez-vous l'appareil suivant dans votre maison : %s ? o/n\n",temporaire->nom);
 		char choix[3];
@@ -141,6 +146,7 @@ void rechercheNom(Liste tableau[],Liste *maison)
 			{
 				strcpy(temporaire->nom,obj->nom);
 				temporaire->puissance=obj->puissance;
+				temporaire->categorie=obj->categorie;
 				
 				if(strstr(temporaire->nom,lettres)!=NULL)//renvoie NULL si lettres n'est pas dans temporaire->nom
 				{
@@ -183,10 +189,21 @@ void ajouterObjMan(Liste *maison)
 	printf("Donner le nom de l'appareil : \n");
 	scanf("%s",objet->nom);
 	
-	int priorite;
+	int puissance;
 	printf("Donnez sa puissance (W) : \n");
-	scanf("%d",&priorite);
-	objet->priorite=priorite;
+	scanf("%d",&puissance);
+	objet->puissance=puissance;
+	
+	printf("\n");
+	printf("Choisir la catégorie :\n");
+	printf("0 Bureau\n");
+	printf("1 Cuisine\n");
+	printf("2 Entretien\n");
+	printf("3 Autre\n");
+	printf("4 Quitter\n");
+	printf("Choix :");
+	scanf("%d",&objet->categorie);
+	printf("\n");
 	
 	ajouterObjMaison(maison,objet);
 }
@@ -230,7 +247,39 @@ void supprimerObj(Liste *maison)
 	}
 	printf("\nNous n'avons pas trouvé l'appareil à supprimer :(\n");
 }
-			
+
+void enregistrerListe(Liste *liste,const char* nomFic)
+{
+	FILE *fichier;
+	fichier=fopen(nomFic,"w");
+	fprintf(fichier,"Catégorie;Electro;Puissance (W);Consommation (h/jour);Priorité\n");
+	Objet *obj=liste->tete;
+	char categorie[LG_MAX];
+	while(obj!=NULL)
+	{
+		switch(obj->categorie)
+		{
+			case 0:
+			strcpy(categorie,"Bureau");
+			break;
+			case 1:
+			strcpy(categorie,"Cuisine");
+			break;
+			case 2:
+			strcpy(categorie,"Entretien");
+			break;
+			case 3:
+			strcpy(categorie,"Autre");
+			break;
+		}
+		printf("%s\n",categorie);
+		fprintf(fichier,"%s;%s;%d;%d;%d\n",categorie,obj->nom,obj->puissance,obj->consommation,obj->priorite);
+		obj=obj->suiv;
+	}
+	fclose(fichier);
+}
+		
+	
 
 
 /**************************************************************
@@ -263,13 +312,13 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
 		switch(choix)
 		{
 			case 0:
-				printf("******BUREAU******\n");
+				printf("\n******BUREAU******\n");
 				afficherListeCat(tableau,Bureau);
-				printf("******CUISINE******\n");
+				printf("\n******CUISINE******\n");
 				afficherListeCat(tableau,Cuisine);
-				printf("******ENTRETIEN******\n");
+				printf("\n******ENTRETIEN******\n");
 				afficherListeCat(tableau,Entretien);
-				printf("******AUTRE******\n");
+				printf("\n******AUTRE******\n");
 				afficherListeCat(tableau,Autre);
 				break;
 			case 1:
@@ -316,7 +365,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 				afficherListe(maison);
 				break;
 			case 4:
-				//enregistrerListe(maison,"MaMaison.csv");
+				enregistrerListe(maison,"MaMaison.csv");
 				break;
 			case 5:
 				supprimerObj(maison);
@@ -336,7 +385,7 @@ void rechercheCat(Liste tableau[],Liste *maison)
 	while(!quitter)
 	{
 		printf("\n");
-		printf("Choisir la categorie\n");
+		printf("Choisir la catégorie\n");
 		printf("0 Bureau\n");
 		printf("1 Cuisine\n");
 		printf("2 Entretien\n");

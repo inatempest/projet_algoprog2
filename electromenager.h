@@ -30,6 +30,7 @@ typedef struct objet_
 	int consommation;
 	int puissance;
 	int priorite;
+	int categorie;
 	struct objet_ *suiv;
 	}Objet;
 	
@@ -51,6 +52,7 @@ void rechercheNom(Liste tableau[],Liste *maison);
 void ajouterObjMan(Liste *maison);
 void afficherListe(Liste *liste);
 void supprimerObj(Liste *maison);
+void enregistrerListe(Liste *liste,const char* nomFic);
 
 
 void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison);
