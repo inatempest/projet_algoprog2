@@ -12,7 +12,7 @@
 - [ ] Enregistrer indicateurs RSI
 
 #### Menu "Equiper sa maison"
-- [ ] Recherche par nom
+- [x] Recherche par nom
 - [x] Recherche par catégorie
 - [ ] Ajouter un appareil manuellement
 - [ ] Afficher mes appareils
@@ -23,5 +23,6 @@
 
 ### Problèmes à régler
 
-### Autre
+### Autre (questions ou suggestions)
 Implémentation d'une table de hachage ?
+La fonction **recherche par nom** ne supporte pas la casse
