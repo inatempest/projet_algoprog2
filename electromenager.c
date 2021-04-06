@@ -2,7 +2,6 @@
 =================================================================================================
 Name : electromenager.c
 Author : Viviana Hirsch
-Version : 0
 Description : Fonctions relatives aux appareils électroménagers
 =================================================================================================
 */
@@ -109,30 +108,63 @@ void parcoursCat(Liste tableau[],Liste *maison,int cat)
 		scanf("%s",choix);
 		if (strcmp(choix,"o")==0)
 		{
-			temporaire->suiv=maison->tete;
-			maison->tete=temporaire;
-		
-			int priorite;
-			printf("Donnez un ordre de priorité :\n");
-			scanf("%d",&priorite);
-			temporaire->priorite=priorite;
+			ajouterObjMaison(maison,temporaire);
 			
-			int conso_h;
-			printf("Donnez moyenne d'utilisation par semaine (en heures) :\n");
-			scanf("%d",&conso_h);
-			temporaire->consommation=conso_h;
 		}
 		obj=obj->suiv;
 	}
 }
 
-/*void rechercheNom(Liste tableau[],Liste *maison)
+void rechercheNom(Liste tableau[],Liste *maison)
 {
 	printf("Donnez le nom ou les premières lettres de l'appareil recherché : ");
 	char lettres[LG_MAX];
 	scanf("%s",lettres);
-	int taille=strlen(lettres);
-}*/
+	
+
+	for(int i=0;i<nb_cat;i++)
+		{
+			Objet *obj=tableau[i].tete;
+			Objet *temporaire;
+			temporaire=(Objet*)malloc(sizeof(Objet));
+			
+			while(obj!=NULL)
+			{
+				strcpy(temporaire->nom,obj->nom);
+				temporaire->puissance=obj->puissance;
+				
+				if(strstr(temporaire->nom,lettres)!=NULL)//renvoie NULL si lettres n'est pas dans temporaire->nom
+				{
+					printf("Recherchiez-vous cet objet : %s ? o/n \n",temporaire->nom);
+					char choix[3];
+					scanf("%s\n",choix);
+					if(strcmp(choix,"o")==0)
+					{
+						ajouterObjMaison(maison,temporaire);
+						break;
+					}
+				}
+				obj=obj->suiv;
+			}
+		}
+	printf("Désolée, l'appareil n'a pas été trouvé :(\n");		
+}
+
+void ajouterObjMaison(Liste *maison,Objet *objet)
+{
+	objet->suiv=maison->tete;
+	maison->tete=objet;
+	
+	int priorite;
+	printf("Donnez un ordre de priorité :\n");
+	scanf("%d",&priorite);
+	objet->priorite=priorite;
+			
+	int conso_h;
+	printf("Donnez moyenne d'utilisation par semaine (en heures) :\n");
+	scanf("%d",&conso_h);
+	objet->consommation=conso_h;
+}
 			
 
 
@@ -206,7 +238,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 				rechercheCat(tableau,maison);
 				break;
 			case 1:
-				//rechercheNom(tableau,maison);
+				rechercheNom(tableau,maison);
 				break;
 			case 2:
 				//ajouterObj(maison);

@@ -2,7 +2,6 @@
 =================================================================================================
 Name : electromenager.h
 Author : Viviana Hirsch
-Version : 0
 Description : Structures et prototypes des fonctions relatives aux appareils électroménagers
 =================================================================================================
 */
@@ -46,7 +45,10 @@ void lireFicElec(Liste tableau[],const char* nomFic);
 void afficherListeCat(Liste tableau[],int cat);
 void afficherObjet(Objet *objet);
 
+void ajouterObjMaison(Liste *maison,Objet *objet);
 void parcoursCat(Liste tableau[],Liste *maison,int cat);
+void rechercheNom(Liste tableau[],Liste *maison);
+
 
 void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison);
 void equiperMaison(Liste tableau[],Liste *maison);
