@@ -72,13 +72,23 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 		fclose(fichier);
 	}
 	else
-		printf("Erreur : fichier non trouve");
+		printf("Désolé, le fichier est introuvable :(");
 }
 	
 
 void afficherListeCat(Liste tableau[],int cat)
 {
 	Objet *obj=tableau[cat].tete;
+	while(obj!=NULL)
+	{
+		afficherObjet(obj);
+		obj=obj->suiv;
+	}
+}
+
+void afficherListe(Liste *liste)
+{
+	Objet *obj=liste->tete;
 	while(obj!=NULL)
 	{
 		afficherObjet(obj);
@@ -137,11 +147,11 @@ void rechercheNom(Liste tableau[],Liste *maison)
 				{
 					printf("Recherchiez-vous cet objet : %s ? o/n \n",temporaire->nom);
 					char choix[3];
-					scanf("%s\n",choix);
+					scanf("%s",choix);
 					if(strcmp(choix,"o")==0)
 					{
 						ajouterObjMaison(maison,temporaire);
-						break;
+						return; //on sort de la fonction
 					}
 				}
 				obj=obj->suiv;
@@ -175,6 +185,47 @@ void ajouterObjMan(Liste *maison)
 	scanf("%s",objet->nom);
 	
 	ajouterObjMaison(maison,objet);
+}
+
+void supprimerObj(Liste *maison)
+{
+	Objet *courant=maison->tete;
+	Objet *prec, *temp;
+	
+	char suppr[LG_MAX];
+	printf("Donner le nom de l'appareil à supprimer de la liste : \n");
+	scanf("%s",suppr);
+	
+	if(strcmp(courant->nom,suppr)==0) //cas particulier si l'élément à supprimer est la tête
+	{
+		temp=courant;
+		maison->tete=courant->suiv;
+		free(temp);
+	}
+	
+	courant=courant->suiv;
+	prec=maison->tete;	
+	while(courant!=NULL && prec!=NULL)
+	{
+		if(strcmp(courant->nom,suppr)==0)
+		{
+			printf("Voulez-vous vraiment supprimer %s de votre liste ? o/n",courant->nom);
+			char choix[3];
+			scanf("%s",choix);
+			if (strcmp(choix,"o")==0)
+			{
+				temp=courant;
+				prec->suiv=courant->suiv;
+				free(temp);
+				break;
+			}
+			else
+				break;
+		}
+		courant=courant->suiv;
+		prec=prec->suiv;
+	}
+	printf("Nous n'avons pas trouvé l'appareil à supprimer :(");
 }
 			
 
@@ -255,7 +306,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 				ajouterObjMan(maison);
 				break;
 			case 3:
-				//afficherListe(maison);
+				afficherListe(maison);
 				break;
 			case 4:
 				//enregistrerListe(maison,"MaMaison.csv");
