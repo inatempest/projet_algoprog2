@@ -16,6 +16,7 @@
 - [x] Supprimer un appareil de la liste
 
 #### Menu "Installer des panneaux photovoltaïques"
+- [x] Consommation de la maison en kWh et en €
 - [ ] Nb de panneaux solaires nécessaires
 - [ ] Optimisation appareils/panneaux solaires
 - [ ] Cout installation panneaux solaires
