@@ -28,10 +28,11 @@ enum Categorie
 typedef struct objet_
 {
 	char nom[LG_MAX];
-	int consommation;
+	float consommation;
 	int puissance;
 	int priorite;
 	int categorie;
+	float conso_WH;
 	struct objet_ *suiv;
 	}Objet;
 	

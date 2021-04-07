@@ -47,6 +47,8 @@ void lireFicElec(Liste tableau[],const char* nomFic)
 			obj->priorite=0;
 			//initialisation de la consommation
 			obj->consommation=0;
+			//initialisation de la conso en Wh
+			obj->conso_WH=0;
 			
 			//placement dans la bonne liste chaînée
 			if (strcmp(categorie,"Bureau")==0)
@@ -103,7 +105,7 @@ void afficherListe(Liste *liste)
 
 void afficherObjet(Objet *objet)
 {
-	printf("Categorie: %d \nNom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation : %d\n\n",objet->categorie,objet->nom,objet->puissance,objet->priorite,objet->consommation);
+	printf("Categorie: %d \nNom : %s \nPuissance (W) : %d \nPriorité : %d\nConsommation : %f\n\n",objet->categorie,objet->nom,objet->puissance,objet->priorite,objet->consommation);
 }
 
 void parcoursCat(Liste tableau[],Liste *maison,int cat)
@@ -176,9 +178,9 @@ void ajouterObjMaison(Liste *maison,Objet *objet)
 	scanf("%d",&priorite);
 	objet->priorite=priorite;
 			
-	int conso_h;
+	float conso_h;
 	printf("Donnez moyenne d'utilisation par jour (en heures) : \n");
-	scanf("%d",&conso_h);
+	scanf("%f",&conso_h);
 	objet->consommation=conso_h;
 }
 
@@ -274,7 +276,7 @@ void enregistrerListe(Liste *liste,const char* nomFic)
 			break;
 		}
 		printf("%s\n",categorie);
-		fprintf(fichier,"%s;%s;%d;%d;%d\n",categorie,obj->nom,obj->puissance,obj->consommation,obj->priorite);
+		fprintf(fichier,"%s;%s;%d;%f;%d\n",categorie,obj->nom,obj->puissance,obj->consommation,obj->priorite);
 		obj=obj->suiv;
 	}
 	fclose(fichier);
