@@ -5,11 +5,7 @@
 #### Menu principal
 - [x] Voir l'inventaire disponible
 - [x] Equiper sa maison
-- [ ] Nb de panneaux solaires nécessaires pour équiper tous les appareils voulus
-- [ ] Optimisation panneaux solaires/appareils
-- [ ] Cout installation panneaux solaires (???)
-- [ ] Durée associée au retour sur investissement
-- [ ] Enregistrer indicateurs RSI
+- [ ] Installer des panneaux photovoltaïques
 
 #### Menu "Equiper sa maison"
 - [x] Recherche par nom
@@ -19,7 +15,13 @@
 - [x] Enregistrer ma liste
 - [x] Supprimer un appareil de la liste
 
-#### Menu à définir
+#### Menu "Installer des panneaux photovoltaïques"
+- [ ] Nb de panneaux solaires nécessaires
+- [ ] Optimisation appareils/panneaux solaires
+- [ ] Cout installation panneaux solaires
+- [ ] Durée associée au retour sur investissement
+- [ ] Enregistrer indicateurs RSI
+- [ ] Entrer de nouvelles valeurs pour les surfaces
 
 ### Problèmes à régler
 
