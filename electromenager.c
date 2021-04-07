@@ -7,6 +7,7 @@ Description : Fonctions relatives aux appareils électroménagers
 */
 
 #include "electromenager.h"
+#include "panneaux.h"
 
 
 void initListe(Liste *liste,int cat)
@@ -300,12 +301,8 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
 		printf("\n");
 		printf("0 Voir l'inventaire disponible\n");
 		printf("1 Equiper sa maison\n"); //donner des ordres de priorités aux appareils
-		printf("2 Nb de panneaux solaires necessaires\n"); //si on prenait tous les appareils demandés
-		printf("3 Optimisation appareils/panneaux solaires\n"); //donne les appareils tels que les panneaux solaires subviennent à leurs besoins, en fonction des priorités de l'utilisateur
-		printf("4 Cout installation panneaux solaires\n");
-		printf("5 Durée associee au retour sur investissement\n");
-		printf("6 Enregistrer indicateurs RSI\n");
-		printf("7 Quitter\n");
+		printf("2 Installer des panneaux photovoltaïques\n");
+		printf("3 Quitter\n");
 		printf("Choix : ");
 		scanf("%d",&choix);
 		
@@ -324,7 +321,10 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
 			case 1:
 				equiperMaison(tableau,maison);
 				break;
-			case 7:
+			case 2:
+				menuPanneau(surface_maison,surface_toit,maison);
+				break;
+			case 3:
 				quitter=true;
 				break;
 		}

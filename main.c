@@ -2,12 +2,13 @@
 =================================================================================================
 Name : main.c
 Author : Viviana Hirsch
-Version : 0
 Description : Main du projet
 =================================================================================================
 */
 
+
 #include "electromenager.h"
+#include "panneaux.h"
 
 int main()
 {

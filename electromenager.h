@@ -7,6 +7,7 @@ Description : Structures et prototypes des fonctions relatives aux appareils él
 */
 
 #ifndef ELECTROMENAGER_H
+#define ELECTROMENAGER_H
 
 #include <stdio.h>
 #include <stdlib.h>
