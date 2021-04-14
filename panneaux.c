@@ -80,6 +80,39 @@ double consoWhEURO(Liste *maison,int *surface_maison, int periode)
 	return prix_total;
 }
 
+void lireFicIr(Month tableau[],const char* nomFic)
+{
+	FILE *fichier;
+	fichier=fopen(nomFic,"r");
+	Month *month;
+		
+	if(fichier!=NULL)
+	{	
+		char ligne[LG_LIGNE];
+		for(int i=0;i<5;i++) //on enlève les 5 premières lignes
+			fgets(ligne,LG_LIGNE,fichier);
+	
+		for(int i=0;i<NB_MONTH;i++)
+		{
+			fgets(ligne,LG_LIGNE,fichier);
+			month=(Month*)malloc(sizeof(Month));
+			fscanf(fichier,"%d %s %lf",&month->annee,month->mois,&month->irradiation);
+			tableau[i]=*month;
+		}
+		fclose(fichier);
+	}
+	else
+		printf("Désolé, ce fichier n'existe pas :(\n");
+}
+
+void afficherTableau(Month tableau[])
+{
+	for(int i=0;i<NB_MONTH;i++)
+	{
+		printf("%d %s %.1lf\n",tableau[i].annee,tableau[i].mois,tableau[i].irradiation);
+	}
+}
+
 
 
 /**************************************************************
