@@ -1,6 +1,8 @@
 # Projet AlgoProg2
 
 ### Fonctions à écrire
+- [x] Lecture du fichier d'électroménagers *(tableau de 4 listes chaînées, une par catégorie)*
+- [x] Lecture du fichier monthly *(tableau)*
 
 #### Menu principal
 - [x] Voir l'inventaire disponible
@@ -19,10 +21,11 @@
 - [x] Consommation de la maison en kWh et en €
 - [ ] Nb de panneaux solaires nécessaires
 - [ ] Optimisation appareils/panneaux solaires
-- [ ] Cout installation panneaux solaires
+- [x] Cout installation panneaux solaires *prend par défaut le nb max possible*
 - [ ] Durée associée au retour sur investissement
 - [ ] Enregistrer indicateurs RSI
 - [ ] Entrer de nouvelles valeurs pour les surfaces
+- [x] Choisir manuellement le nb de panneaux solaires
 
 ### Problèmes à régler
 
