@@ -40,7 +40,7 @@ int main()
 	const char* NOM_FIC_MONTH="Monthlydata_48.580_7.762_SA_2005_2016.csv";
 	Month data[144];
 	lireFicIr(data,NOM_FIC_MONTH);
-	afficherTableau(data);
+	//afficherTableau(data);
 	
 	
 	menu(inventaire,&surface_maison,&surface_toit,&maison);

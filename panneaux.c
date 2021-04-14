@@ -113,7 +113,20 @@ void afficherTableau(Month tableau[])
 	}
 }
 
-
+double saisirNbPanneaux(int *surface_toit)
+{
+	double max=nbPanneauxDisp(surface_toit);
+	double choix_nb;
+	printf("Donner le nombre de panneaux voulu :\n");
+	scanf("%le",&choix_nb);
+	if(choix_nb>max)
+	{
+		printf("Impossible de mettre autant de panneaux.\n");
+		return max;
+	}
+	else
+		return choix_nb;
+}
 
 /**************************************************************
 
@@ -127,6 +140,7 @@ void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison)
 {
 	bool quitter=false;
 	int choix;
+	double nbPanneaux=nbPanneauxDisp(surface_toit); //par défaut on prend autant de panneaux que possible
 	
 	while(!quitter)
 	{
@@ -138,7 +152,8 @@ void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison)
 		printf("4 Durée associee au retour sur investissement\n");
 		printf("5 Enregistrer indicateurs RSI\n");
 		printf("6 Entrer de nouvelles valeurs pour les surfaces\n");
-		printf("7 Quitter\n");
+		printf("7 Saisir le nb de panneaux solaires manuellement\n");
+		printf("8 Quitter\n");
 		printf("Choix : ");
 		scanf("%d",&choix);
 		
@@ -150,9 +165,12 @@ void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison)
 			case 2:
 				break;
 			case 3:
-				//coutInstallation(surface_toit);
+				coutInstallation(surface_toit,&nbPanneaux);
 				break;
 			case 7:
+				nbPanneaux=saisirNbPanneaux(surface_toit);
+				break;
+			case 8:
 				quitter=true;
 				break;
 		}

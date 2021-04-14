@@ -40,6 +40,7 @@ int coutInstallation(int *surface_toit, double *nbPanneaux);
 int choixDuree();
 double consoWhParTemps(Liste *maison,int *surface_maison,int periode);
 double consoWhEURO(Liste *maison,int *surface_maison, int periode);
+double saisirNbPanneaux(int *surface_toit);
 
 void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison);
 void menuConso(Liste *maison, int *surface_maison);
