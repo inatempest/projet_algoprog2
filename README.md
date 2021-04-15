@@ -25,7 +25,7 @@
 - [x] Cout installation panneaux solaires
 - [x] Durée associée au retour sur investissement *//à vérifier*
 - [ ] Enregistrer indicateurs RSI
-- [ ] Entrer de nouvelles valeurs pour les surfaces
+- [x] Entrer de nouvelles valeurs pour les surfaces
 - [x] Choisir manuellement le nb de panneaux solaires
 
 ### Problèmes à régler
