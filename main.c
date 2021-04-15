@@ -43,6 +43,6 @@ int main()
 	//afficherTableau(data);
 	
 	
-	menu(inventaire,&surface_maison,&surface_toit,&maison);
+	menu(inventaire,&surface_maison,&surface_toit,&maison,data);
 	return 0;
 }

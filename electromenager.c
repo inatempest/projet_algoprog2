@@ -203,7 +203,6 @@ void ajouterObjMan(Liste *maison)
 	printf("1 Cuisine\n");
 	printf("2 Entretien\n");
 	printf("3 Autre\n");
-	printf("4 Quitter\n");
 	printf("Choix :");
 	scanf("%d",&objet->categorie);
 	printf("\n");
@@ -292,46 +291,6 @@ void enregistrerListe(Liste *liste,const char* nomFic)
 	
 	
 ***************************************************************/
-
-void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison)
-{
-	bool quitter=false;
-	int choix;
-	
-	while(!quitter)
-	{
-		printf("\n");
-		printf("0 Voir l'inventaire disponible\n");
-		printf("1 Equiper sa maison\n"); //donner des ordres de priorités aux appareils
-		printf("2 Installer des panneaux photovoltaïques\n");
-		printf("3 Quitter\n");
-		printf("Choix : ");
-		scanf("%d",&choix);
-		
-		switch(choix)
-		{
-			case 0:
-				printf("\n******BUREAU******\n");
-				afficherListeCat(tableau,Bureau);
-				printf("\n******CUISINE******\n");
-				afficherListeCat(tableau,Cuisine);
-				printf("\n******ENTRETIEN******\n");
-				afficherListeCat(tableau,Entretien);
-				printf("\n******AUTRE******\n");
-				afficherListeCat(tableau,Autre);
-				break;
-			case 1:
-				equiperMaison(tableau,maison);
-				break;
-			case 2:
-				menuPanneau(surface_maison,surface_toit,maison);
-				break;
-			case 3:
-				quitter=true;
-				break;
-		}
-	}
-}
 		
 	
 void equiperMaison(Liste tableau[],Liste *maison)

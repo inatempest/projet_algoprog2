@@ -14,8 +14,9 @@ Description : Structures et prototypes des fonctions relatives aux appareils él
 #include <string.h>
 #include <stdbool.h>
 
+
 #define LG_MAX 30
-#define LG_LIGNE 80
+#define LG_LIGNE 200
 
 #define nb_cat 4
 
@@ -43,6 +44,7 @@ typedef struct
 	}Liste;
 
 
+
 void initListe(Liste *liste,int cat);
 void lireFicElec(Liste tableau[],const char* nomFic);
 void afficherListeCat(Liste tableau[],int cat);
@@ -57,7 +59,6 @@ void supprimerObj(Liste *maison);
 void enregistrerListe(Liste *liste,const char* nomFic);
 
 
-void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison);
 void equiperMaison(Liste tableau[],Liste *maison);
 void rechercheCat(Liste tableau[],Liste *maison);
 #endif

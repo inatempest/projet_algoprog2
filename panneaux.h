@@ -17,6 +17,7 @@ Description : Structures et prototypes des fonctions relatives aux panneaux sola
 #define PRIX_MOYEN 0.1765 //prix moyen (2019) en France par kWh
 
 #define NB_MONTH 144 //nb de mois dans un fichier monthly
+#define NB_YEAR 12 //nb d'années dans un fichier monthly
 
 typedef enum Temps Temps;
 enum Temps
@@ -32,8 +33,8 @@ typedef struct _month
 }Month;
 
 
-void lireFicIr(Month tableau[],const char* nomFic);
-void afficherTableau(Month tableau[]);
+void lireFicIr(Month tab[],const char* nomFic);
+void afficherTableau(Month tab[]);
 double calculWH(Liste *maison,int *surface_maison,int duree);
 double nbPanneauxDisp(int *surface_toit);
 int coutInstallation(int *surface_toit, double *nbPanneaux);
@@ -41,8 +42,12 @@ int choixDuree();
 double consoWhParTemps(Liste *maison,int *surface_maison,int periode);
 double consoWhEURO(Liste *maison,int *surface_maison, int periode);
 double saisirNbPanneaux(int *surface_toit);
+int retourSurInvestissement(double *nbPanneaux,Month tab[],int *surface_toit,Liste *maison,int *surface_maison);
+double moyenneMois(Month tableau[]);
+double nbPanneauxNecessaires(Month tab[],Liste *maison, int *surface_maison, int *surface_toit);
 
-void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison);
+void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison,Month tableau[]);
+void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[]);
 void menuConso(Liste *maison, int *surface_maison);
 
 #endif
