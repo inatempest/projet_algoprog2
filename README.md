@@ -22,7 +22,7 @@
 - [x] Consommation de la maison en kWh et en €
 - [ ] Nb de panneaux solaires nécessaires
 - [ ] Optimisation appareils/panneaux solaires
-- [x] Cout installation panneaux solaires *prend par défaut le nb max possible*
+- [x] Cout installation panneaux solaires
 - [ ] Durée associée au retour sur investissement
 - [ ] Enregistrer indicateurs RSI
 - [ ] Entrer de nouvelles valeurs pour les surfaces
