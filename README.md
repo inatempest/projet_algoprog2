@@ -20,10 +20,10 @@
 
 #### Menu "Installer des panneaux photovoltaïques"
 - [x] Consommation de la maison en kWh et en €
-- [ ] Nb de panneaux solaires nécessaires
+- [x] Nb de panneaux solaires nécessaires
 - [ ] Optimisation appareils/panneaux solaires
 - [x] Cout installation panneaux solaires
-- [ ] Durée associée au retour sur investissement
+- [x] Durée associée au retour sur investissement *//à vérifier*
 - [ ] Enregistrer indicateurs RSI
 - [ ] Entrer de nouvelles valeurs pour les surfaces
 - [x] Choisir manuellement le nb de panneaux solaires
