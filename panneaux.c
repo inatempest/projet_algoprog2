@@ -173,13 +173,20 @@ double nbPanneauxNecessaires(Month tab[],Liste *maison, int *surface_maison, int
 	if(nb_panneaux>max)
 	{
 		printf("Pas assez de surface disponible pour mettre le nb de panneaux nécessaires.\n");
+		printf("Vous pouvez mettre au maximum %.0lf panneaux.\n",max);
 		return max;
 	}
 	else
 		return nb_panneaux;
 }
 		
-
+void saisirSurfaces(int *surface_maison,int *surface_toit)
+{
+	printf("Veuillez saisir une nouvelle surface pour votre maison : \n");
+	scanf("%d",surface_maison);
+	printf("Veuillez saisir une nouvelle surface pour votre toit : \n");
+	scanf("%d",surface_toit);
+}
 	
 
 /**************************************************************
@@ -266,6 +273,9 @@ void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[]
 				break;
 			case 4:
 				retourSurInvestissement(&nbPanneaux,tab,surface_toit,maison,surface_maison);
+				break;
+			case 6:
+				saisirSurfaces(surface_maison,surface_toit);
 				break;
 			case 7:
 				nbPanneaux=saisirNbPanneaux(surface_toit);

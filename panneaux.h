@@ -45,6 +45,7 @@ double saisirNbPanneaux(int *surface_toit);
 int retourSurInvestissement(double *nbPanneaux,Month tab[],int *surface_toit,Liste *maison,int *surface_maison);
 double moyenneMois(Month tableau[]);
 double nbPanneauxNecessaires(Month tab[],Liste *maison, int *surface_maison, int *surface_toit);
+void saisirSurfaces(int *surface_maison,int *surface_toit);
 
 void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison,Month tableau[]);
 void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[]);
