@@ -13,6 +13,7 @@ Description : Structures et prototypes des fonctions relatives aux appareils él
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h> //pour éviter la casse lors de la recherche par nom
 
 
 #define LG_MAX 30

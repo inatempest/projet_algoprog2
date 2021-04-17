@@ -139,6 +139,11 @@ void rechercheNom(Liste tableau[],Liste *maison)
 	char lettres[LG_MAX];
 	scanf("%s",lettres);
 	
+	//transforme toute la chaîne de caractère en minuscules
+	for(int i = 0; lettres[i]; i++){
+  	lettres[i] = tolower(lettres[i]);
+	}
+	
 
 	for(int i=0;i<nb_cat;i++)
 		{
@@ -148,11 +153,18 @@ void rechercheNom(Liste tableau[],Liste *maison)
 			
 			while(obj!=NULL)
 			{
+				char nom_tempo[LG_MAX];
 				strcpy(temporaire->nom,obj->nom);
 				temporaire->puissance=obj->puissance;
 				temporaire->categorie=obj->categorie;
 				
-				if(strstr(temporaire->nom,lettres)!=NULL)//renvoie NULL si lettres n'est pas dans temporaire->nom
+				//transforme toute la chaîne de caractère en minuscules
+				strcpy(nom_tempo,temporaire->nom);
+				for(int i = 0; nom_tempo[i]; i++){
+  				nom_tempo[i] = tolower(nom_tempo[i]);
+				}
+				
+				if(strstr(nom_tempo,lettres)!=NULL)//renvoie NULL si lettres n'est pas dans temporaire->nom
 				{
 					printf("Recherchiez-vous cet objet : %s ? o/n \n",temporaire->nom);
 					char choix[3];
