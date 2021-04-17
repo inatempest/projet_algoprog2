@@ -7,7 +7,7 @@
 #### Menu principal
 - [x] Voir l'inventaire disponible
 - [x] Equiper sa maison
-- [ ] Installer des panneaux photovoltaïques
+- [x] Installer des panneaux photovoltaïques
 
 #### Menu "Equiper sa maison"
 - [x] Recherche par nom
@@ -21,10 +21,10 @@
 #### Menu "Installer des panneaux photovoltaïques"
 - [x] Consommation de la maison en kWh et en €
 - [x] Nb de panneaux solaires nécessaires
-- [ ] Optimisation appareils/panneaux solaires
+- [x] Optimisation appareils/panneaux solaires
 - [x] Cout installation panneaux solaires
 - [x] Durée associée au retour sur investissement *//à vérifier*
-- [ ] Enregistrer indicateurs RSI
+- [x] Enregistrer indicateurs RSI
 - [x] Entrer de nouvelles valeurs pour les surfaces
 - [x] Choisir manuellement le nb de panneaux solaires
 
@@ -33,3 +33,4 @@
 ### Autre (questions ou suggestions)
 - Implémentation d'une table de hachage ?
 - La fonction **recherche par nom** ne supporte pas la casse, amélioration à apporter ?
+- Autres indicateurs RSI à enregistrer ?
