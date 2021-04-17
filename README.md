@@ -16,7 +16,7 @@
 - [x] Afficher mes appareils
 - [x] Enregistrer ma liste
 - [x] Supprimer un appareil de la liste
-- [ ] Lire ma liste *//doit avoir la forme adéquate*
+- [x] Lire ma liste *//doit avoir la forme adéquate*
 
 #### Menu "Installer des panneaux photovoltaïques"
 - [x] Consommation de la maison en kWh et en €
