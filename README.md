@@ -32,5 +32,5 @@
 
 ### Autre (questions ou suggestions)
 - Implémentation d'une table de hachage ?
-- La fonction **recherche par nom** ne supporte pas la casse, amélioration à apporter ?
+- La fonction **recherche par nom** ne supporte pas la casse, amélioration à apporter ? // résolu
 - Autres indicateurs RSI à enregistrer ?
