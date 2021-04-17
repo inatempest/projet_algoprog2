@@ -57,6 +57,7 @@ void ajouterObjMan(Liste *maison);
 void afficherListe(Liste *liste);
 void supprimerObj(Liste *maison);
 void enregistrerListe(Liste *liste,const char* nomFic);
+void lireFicMaison(Liste *maison,const char* nomFic);
 
 
 void equiperMaison(Liste tableau[],Liste *maison);

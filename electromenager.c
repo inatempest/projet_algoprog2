@@ -280,6 +280,65 @@ void enregistrerListe(Liste *liste,const char* nomFic)
 	}
 	fclose(fichier);
 }
+
+void lireFicMaison(Liste *maison,const char* nomFic)
+{
+	FILE *fichier;
+	fichier=fopen(nomFic,"r");
+	if(fichier!=NULL)
+	{	
+		char ligne[LG_LIGNE];
+		fgets(ligne,LG_LIGNE,fichier); //récupère les titres des colonnes
+		Objet *obj;
+		while(fgets(ligne,LG_LIGNE,fichier)!=NULL)
+		{
+			char *ptr_chaine=strtok(ligne,";"); //sépare la ligne en fonction des point-virgules
+			obj=(Objet*)malloc(sizeof(Objet));
+			
+			//catégorie de l'objet
+			char categorie[10];
+			sscanf(ptr_chaine,"%s",categorie);
+			ptr_chaine=strtok(NULL,";");
+			//nom de l'objet
+			sscanf(ptr_chaine,"%[^\t\n]",obj->nom); //force sscanf à ne s'arrêter qu'à une tab ou retour à la ligne
+			ptr_chaine=strtok(NULL,";");
+			//puissance de l'objet
+			sscanf(ptr_chaine,"%d",&obj->puissance);
+			ptr_chaine=strtok(NULL,";");
+			//consommation (h/jour) 
+			sscanf(ptr_chaine,"%f",&obj->consommation);
+			ptr_chaine=strtok(NULL,";");
+			//priorité
+			sscanf(ptr_chaine,"%d",&obj->priorite);
+			ptr_chaine=strtok(NULL,";");
+			//initialisation de la conso en Wh
+			obj->conso_WH=(obj->consommation)*(obj->puissance);
+			
+			if (strcmp(categorie,"Bureau")==0)
+			{
+				obj->categorie=Bureau;
+			}
+			else if (strcmp(categorie,"Cuisine")==0)
+			{
+				obj->categorie=Cuisine;
+			}
+			else if (strcmp(categorie,"Entretien")==0)
+			{
+				obj->categorie=Entretien;
+			}
+			else if (strcmp(categorie,"Autre")==0)
+			{
+				obj->categorie=Autre;
+			}
+			
+			obj->suiv=maison->tete;
+			maison->tete=obj;
+		}
+	fclose(fichier);
+	}
+	else
+		printf("Le fichier n'existe pas, désolée :(");
+}
 		
 	
 
@@ -307,7 +366,8 @@ void equiperMaison(Liste tableau[],Liste *maison)
 		printf("3 Afficher mes appareils\n");
 		printf("4 Enregistrer ma liste\n");
 		printf("5 Supprimer un appareil de la liste\n");
-		printf("6 Quitter\n");
+		printf("6 Télécharger son fichier Maison\n");
+		printf("7 Quitter\n");
 		printf("Choix : ");
 		scanf("%d",&choix);
 		
@@ -332,6 +392,8 @@ void equiperMaison(Liste tableau[],Liste *maison)
 				supprimerObj(maison);
 				break;
 			case 6:
+				lireFicMaison(maison,"MaMaison.csv");
+			case 7:
 				quitter=true;
 				break;
 		}
