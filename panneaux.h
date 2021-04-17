@@ -18,6 +18,7 @@ Description : Structures et prototypes des fonctions relatives aux panneaux sola
 
 #define NB_MONTH 144 //nb de mois dans un fichier monthly
 #define NB_YEAR 12 //nb d'années dans un fichier monthly
+#define NB_HOUR 24
 
 typedef enum Temps Temps;
 enum Temps
@@ -32,9 +33,20 @@ typedef struct _month
 	double irradiation;
 }Month;
 
+typedef struct _day
+{
+	int hour;
+	double global_ir;
+	double direct_ir;
+	double diffuse_ir;
+}Day;
+
 
 void lireFicIr(Month tab[],const char* nomFic);
-void afficherTableau(Month tab[]);
+void lireFicDay(Day tab[],const char* nomFic);
+
+void afficherTableau(Month tab[]); //pour les tests
+
 double calculWH(Liste *maison,int *surface_maison,int duree);
 double nbPanneauxDisp(int *surface_toit);
 int coutInstallation(int *surface_toit, double *nbPanneaux);
@@ -43,12 +55,19 @@ double consoWhParTemps(Liste *maison,int *surface_maison,int periode);
 double consoWhEURO(Liste *maison,int *surface_maison, int periode);
 double saisirNbPanneaux(int *surface_toit);
 int retourSurInvestissement(double *nbPanneaux,Month tab[],int *surface_toit,Liste *maison,int *surface_maison);
+void enregistrerRSI(double *nbPanneaux,int *surface_toit,Liste *maison,int *surface_maison,Month tab[],Day tab_day[],const char* nomFic);
+
 double moyenneMois(Month tableau[]);
+double moyenneJour(Day tab[]);
+
 double nbPanneauxNecessaires(Month tab[],Liste *maison, int *surface_maison, int *surface_toit);
 void saisirSurfaces(int *surface_maison,int *surface_toit);
 
-void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison,Month tableau[]);
-void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[]);
+int max(int a,int b);
+int optimisationSemaine(Liste *maison,Day tab[], double *nb_panneaux);
+
+void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison,Month tab[],Day tab_day[]);
+void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[],Day tab_day[]);
 void menuConso(Liste *maison, int *surface_maison);
 
 #endif

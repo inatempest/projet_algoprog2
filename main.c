@@ -37,12 +37,15 @@ int main()
 	printf("\nDonner surface toit : ");
 	scanf("%d",&surface_toit);
 	
-	const char* NOM_FIC_MONTH="Monthlydata_48.580_7.762_SA_2005_2016.csv";
-	Month data[144];
-	lireFicIr(data,NOM_FIC_MONTH);
-	//afficherTableau(data);
+	const char* NOM_FIC_MONTH="Monthlydata_48.582_7.769_SA_2005_2016.csv";
+	Month data_month[NB_MONTH];
+	lireFicIr(data_month,NOM_FIC_MONTH);
+
+	const char* NOM_FIC_DAY="Dailydata_48.582_7.769_SA_04_35deg_0deg.csv";
+	Day data_day[NB_HOUR];
+	lireFicDay(data_day,NOM_FIC_DAY);
 	
 	
-	menu(inventaire,&surface_maison,&surface_toit,&maison,data);
+	menu(inventaire,&surface_maison,&surface_toit,&maison,data_month,data_day);
 	return 0;
 }

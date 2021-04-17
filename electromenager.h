@@ -41,6 +41,7 @@ typedef struct
 {
 	Objet *tete;
 	int categorie;
+	int nb_elements;
 	}Liste;
 
 

@@ -14,6 +14,7 @@ void initListe(Liste *liste,int cat)
 {
 	liste->tete=NULL;
 	liste->categorie=cat;
+	liste->nb_elements=0;
 }
 
 void lireFicElec(Liste tableau[],const char* nomFic)
@@ -182,6 +183,8 @@ void ajouterObjMaison(Liste *maison,Objet *objet)
 	printf("Donnez moyenne d'utilisation par jour (en heures) : \n");
 	scanf("%f",&conso_h);
 	objet->consommation=conso_h;
+	
+	maison->nb_elements++; //compte le nb d'éléments ajoutés à la maison
 }
 
 void ajouterObjMan(Liste *maison)
@@ -241,6 +244,7 @@ void supprimerObj(Liste *maison)
 				temp=courant;
 				prec->suiv=courant->suiv;
 				free(temp);
+				maison->nb_elements-=1;
 				return;
 			}
 		}
@@ -274,7 +278,6 @@ void enregistrerListe(Liste *liste,const char* nomFic)
 			strcpy(categorie,"Autre");
 			break;
 		}
-		printf("%s\n",categorie);
 		fprintf(fichier,"%s;%s;%d;%f;%d\n",categorie,obj->nom,obj->puissance,obj->consommation,obj->priorite);
 		obj=obj->suiv;
 	}
@@ -292,6 +295,7 @@ void lireFicMaison(Liste *maison,const char* nomFic)
 		Objet *obj;
 		while(fgets(ligne,LG_LIGNE,fichier)!=NULL)
 		{
+			maison->nb_elements++;
 			char *ptr_chaine=strtok(ligne,";"); //sépare la ligne en fonction des point-virgules
 			obj=(Objet*)malloc(sizeof(Objet));
 			
@@ -333,6 +337,7 @@ void lireFicMaison(Liste *maison,const char* nomFic)
 			
 			obj->suiv=maison->tete;
 			maison->tete=obj;
+
 		}
 	fclose(fichier);
 	}

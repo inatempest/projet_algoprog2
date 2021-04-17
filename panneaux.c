@@ -15,10 +15,10 @@ double calculWH(Liste *maison,int *surface_maison,int duree)
 	while(obj!=NULL)
 	{
 		if(strcmp(obj->nom,"Chauffage (m²)")==0 || strcmp(obj->nom,"Ampoule LED")==0)
-			obj->conso_WH=(obj->consommation)*(obj->puissance)*(*surface_maison)*duree;
+			obj->conso_WH=(obj->consommation)*(obj->puissance)*(*surface_maison);
 		else
-			obj->conso_WH=(obj->consommation)*(obj->puissance)*duree;
-		total+=obj->conso_WH;
+			obj->conso_WH=(obj->consommation)*(obj->puissance);
+		total+=obj->conso_WH*duree;
 		obj=obj->suiv;
 	}
 	return total;
@@ -105,6 +105,34 @@ void lireFicIr(Month tab[],const char* nomFic)
 		printf("Désolé, ce fichier n'existe pas :(\n");
 }
 
+void lireFicDay(Day tab[],const char* nomFic)
+{
+	FILE *fichier;
+	fichier=fopen(nomFic,"r");
+	Day *day;
+	char heure[10];
+	
+	if(fichier!=NULL)
+	{
+		char ligne[LG_LIGNE];
+		for(int i=0;i<7;i++) //on enlève les 7 premières lignes
+			fgets(ligne,LG_LIGNE,fichier);
+		
+		for(int i=0;i<NB_HOUR;i++)
+		{
+			fgets(ligne,LG_LIGNE,fichier);
+			day=(Day*)malloc(sizeof(Day));
+			fscanf(fichier,"%s %lf %lf %lf",heure,&day->global_ir,&day->direct_ir,&day->diffuse_ir);
+			day->hour=i;
+			tab[i]=*day;
+		}
+		fclose(fichier);
+	}
+	else
+		printf("Désolé, ce fichier n'existe pas :(\n");
+}
+			
+
 void afficherTableau(Month tab[])
 {
 	for(int i=0;i<NB_MONTH;i++)
@@ -161,6 +189,16 @@ double moyenneMois(Month tab[])
 	return moyenne_ir;
 }
 
+double moyenneJour(Day tab[])
+{
+	double moyenne=0;
+	for(int i=0;i<NB_HOUR;i++)
+		moyenne+=tab[i].global_ir;
+	moyenne=(moyenne/NB_HOUR); //moyenne de l'irradiation sur un jour en Wh
+	return moyenne;
+}
+
+
 double nbPanneauxNecessaires(Month tab[],Liste *maison, int *surface_maison, int *surface_toit)
 {
 	double moyenne_mois=moyenneMois(tab);
@@ -187,6 +225,126 @@ void saisirSurfaces(int *surface_maison,int *surface_toit)
 	printf("Veuillez saisir une nouvelle surface pour votre toit : \n");
 	scanf("%d",surface_toit);
 }
+
+int optimisationSemaine(Liste *maison,Day tab[], double *nb_panneaux)
+{
+	int nb_elements=maison->nb_elements;
+	double m=moyenneJour(tab);
+	printf("moyenneJour : %lf",m);
+	int capacity=floor(moyenneJour(tab)*7*(*nb_panneaux)*P); //production des panneaux sur une semaine
+	printf("capacity : %d\n",capacity);
+	int** V=(int**)malloc(sizeof(int*)*(capacity+1)); //tableau de capacity+1 colonnes
+	int** app_garde_bool=(int**)malloc(sizeof(int*)*(capacity+1)); //case vaut 1 si l'objet est gardé
+	Objet** app_garde=(Objet**)malloc(sizeof(Objet*)*(capacity+1));
+	Objet *objet;
+	int conso;
+	
+	//initialisation des tableaux
+	for(int b=0;b<=capacity;b++)
+	{
+		V[b]=(int*)malloc(sizeof(int)*(nb_elements+1)); //tableau de nb_elements+1 lignes
+		app_garde_bool[b]=(int*)malloc(sizeof(int)*(nb_elements+1));
+		app_garde[b]=(Objet*)malloc(sizeof(Objet)*(nb_elements+1));
+		V[b][0]=0; //première ligne remplie de 0
+		
+		for(int t=0;t<=nb_elements;t++)
+			app_garde_bool[b][t]=0; 
+	}
+	
+
+	for(int b=0;b<=capacity;b++)
+	{
+	objet=maison->tete;
+		for(int t=1;t<=nb_elements;t++)
+		{
+		conso=(int)floor(objet->conso_WH);
+			if(conso<=b)
+			{
+				V[b][t]=max(V[b][t-1],V[b-conso][t-1]+objet->priorite);
+				
+				if(V[b-conso][t]+(objet->priorite)>V[b][t-1])
+				{
+					app_garde_bool[b][t]=1;
+					app_garde[b][t]=*objet;
+				}
+			}
+			else
+				V[b][t]=V[b][t-1];
+			objet=objet->suiv;
+
+		}
+	}
+			
+	printf("Sur une semaine, vous pourriez utiliser :\n");
+	int k=capacity;
+	for(int t=nb_elements;t>=0;t--)
+	{
+		if(app_garde_bool[k][t]==1)
+		{
+			printf("%s\n",(app_garde[k][t]).nom);
+			conso=(int)floor((app_garde[k][t]).conso_WH);
+			k=k-conso;
+		}
+	}
+	return V[capacity][nb_elements];
+}
+
+int max(int a,int b)
+{
+	if(a>=b)
+		return a;
+	return b;
+}
+
+void enregistrerRSI(double *nbPanneaux,int *surface_toit,Liste *maison,int *surface_maison,Month tab[],Day tab_day[],const char* nomFic)
+{
+	FILE *fichier;
+	fichier=fopen(nomFic,"w");
+	
+	fprintf(fichier,"Votre consommation actuelle d'électricité : \n");
+	
+	double kWh_JOUR=consoWhParTemps(maison,surface_maison,JOUR)/1000;
+	double prix_JOUR=consoWhEURO(maison,surface_maison,JOUR);	
+	fprintf(fichier,"Consommation par jour : \n");
+	fprintf(fichier,"En euro : %.0lf | En kWh : %.0lf \n",prix_JOUR,kWh_JOUR);
+
+	double kWh_SEMAINE=consoWhParTemps(maison,surface_maison,SEMAINE)/1000;
+	double prix_SEMAINE=consoWhEURO(maison,surface_maison,SEMAINE);	
+	fprintf(fichier,"Consommation par semaine : \n");
+	fprintf(fichier,"En euro : %.0lf | En kWh : %.0lf \n",prix_SEMAINE,kWh_SEMAINE);
+	
+	double kWh_MOIS=consoWhParTemps(maison,surface_maison,MOIS)/1000;
+	double prix_MOIS=consoWhEURO(maison,surface_maison,MOIS);	
+	fprintf(fichier,"Consommation par mois : \n");
+	fprintf(fichier,"En euro : %.0lf | En kWh : %.0lf \n",prix_MOIS,kWh_MOIS);
+	
+	double kWh_AN=consoWhParTemps(maison,surface_maison,ANNEE)/1000;
+	double prix_AN=consoWhEURO(maison,surface_maison,ANNEE);	
+	fprintf(fichier,"Consommation par an : \n");
+	fprintf(fichier,"En euro : %.0lf | En kWh : %.0lf \n",prix_AN,kWh_AN);
+	
+	double max=nbPanneauxDisp(surface_toit);
+	int cout_max=coutInstallation(surface_toit,&max);
+	fprintf(fichier,"Nombre total de panneaux solaires qu'il est possible d'installer : %.0lf \n",max);
+	fprintf(fichier,"Coût d'une telle installation : %d \n",cout_max);
+	
+	double optimisation=nbPanneauxNecessaires(tab,maison,surface_maison,surface_toit);
+	if(optimisation<=max)
+	{
+		int cout_optimise=coutInstallation(surface_toit,&optimisation);
+		fprintf(fichier,"Nombre de panneaux solaires suffisant : %.0lf \n",optimisation);
+		fprintf(fichier,"Coût d'une telle installation : %d \n",cout_optimise);
+	}
+	else
+		fprintf(fichier,"Pas suffisamment de surface disponible pour subvenir à la consommation");
+	
+	int an_RSI=retourSurInvestissement(nbPanneaux,tab,surface_toit,maison,surface_maison);
+	fprintf(fichier,"Avec le nombre de panneaux choisi, soit %.0lf , la durée de retour sur investissement est estimée à %d ans.\n",*nbPanneaux,an_RSI);
+	
+	fclose(fichier);
+}
+	
+	
 	
 
 /**************************************************************
@@ -197,7 +355,7 @@ void saisirSurfaces(int *surface_maison,int *surface_toit)
 	
 ***************************************************************/
 
-void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison,Month tab[])
+void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison,Month tab[],Day tab_day[])
 {
 	bool quitter=false;
 	int choix;
@@ -228,7 +386,7 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison,Mo
 				equiperMaison(tableau,maison);
 				break;
 			case 2:
-				menuPanneau(surface_maison,surface_toit,maison,tab);
+				menuPanneau(surface_maison,surface_toit,maison,tab,tab_day);
 				break;
 			case 3:
 				quitter=true;
@@ -237,18 +395,19 @@ void menu(Liste tableau[],int *surface_maison,int *surface_toit,Liste *maison,Mo
 	}
 }
 
-void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[])
+void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[],Day tab_day[])
 {
 	bool quitter=false;
 	int choix;
 	double nbPanneaux=nbPanneauxDisp(surface_toit); //par défaut on prend autant de panneaux que possible
+	calculWH(maison,surface_maison,JOUR); //permet de calculer la conso en Wh de tous les appareils
 	
 	while(!quitter)
 	{
 		printf("\n");
 		printf("0 Consommation de la maison en kWh et en €\n");
 		printf("1 Nb de panneaux solaires necessaires\n"); //si on prenait tous les appareils demandés
-		printf("2 Optimisation appareils/panneaux solaires sur un mois\n"); //donne les appareils tels que les panneaux solaires subviennent à leurs besoins, en fonction des priorités de l'utilisateur
+		printf("2 Optimisation appareils/panneaux solaires sur une semaine\n"); //donne les appareils tels que les panneaux solaires subviennent à leurs besoins, en fonction des priorités de l'utilisateur
 		printf("3 Cout installation panneaux solaires\n");
 		printf("4 Durée associee au retour sur investissement\n");
 		printf("5 Enregistrer indicateurs RSI\n");
@@ -267,12 +426,16 @@ void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[]
 				nbPanneaux=nbPanneauxNecessaires(tab,maison,surface_maison,surface_toit);
 				break;
 			case 2:
+				optimisationSemaine(maison,tab_day,&nbPanneaux);
 				break;
 			case 3:
 				coutInstallation(surface_toit,&nbPanneaux);
 				break;
 			case 4:
 				retourSurInvestissement(&nbPanneaux,tab,surface_toit,maison,surface_maison);
+				break;
+			case 5:
+				enregistrerRSI(&nbPanneaux,surface_toit,maison,surface_maison,tab,tab_day,"RSI.txt");
 				break;
 			case 6:
 				saisirSurfaces(surface_maison,surface_toit);
