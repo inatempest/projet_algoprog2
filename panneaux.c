@@ -219,7 +219,7 @@ int optimisationSemaine(Liste *maison,Day tab_day[], double *nb_panneaux)
 		}
 	}
 			
-	printf("Sur une semaine, vous pourriez aliment grâce à vos panneaux solaires :\n");
+	printf("Sur une semaine, vous pourriez alimenter grâce à vos panneaux solaires :\n");
 	int k=capacity;
 	for(int t=nb_elements;t>=0;t--)
 	{
