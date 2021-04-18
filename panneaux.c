@@ -93,7 +93,7 @@ void enregistrerRSI(double *nbPanneaux,int *surface_toit,Liste *maison,int *surf
 	fprintf(fichier,"Coût d'une telle installation : %d \n",cout_max);
 	
 	double optimisation=nbPanneauxNecessaires(tab_month,maison,surface_maison,surface_toit);
-	if(optimisation<=max)
+	if(optimisation==max)
 	{
 		int cout_optimise=coutInstallation(surface_toit,&optimisation);
 		fprintf(fichier,"Nombre de panneaux solaires suffisant : %.0lf \n",optimisation);
@@ -133,7 +133,7 @@ double nbPanneauxDisp(int *surface_toit)
 
 double nbPanneauxNecessaires(Month tab_month[],Liste *maison, int *surface_maison, int *surface_toit)
 {
-	double moyenne_mois=moyenneMois(tab_month);
+	double moyenne_mois=moyenneMois(tab_month)/12;
 	double besoin_mois=calculWH(maison,surface_maison,MOIS);
 	double surface_nec=besoin_mois/moyenne_mois;
 	double max=nbPanneauxDisp(surface_toit);
@@ -176,6 +176,7 @@ int optimisationSemaine(Liste *maison,Day tab_day[], double *nb_panneaux)
 {
 	int nb_elements=maison->nb_elements;
 	int capacity=floor(moyenneJour(tab_day)*7*(*nb_panneaux)*P); //production des panneaux sur une semaine
+	printf("capacity : %d\n",capacity);
 	int** V=(int**)malloc(sizeof(int*)*(capacity+1)); //tableau de capacity+1 colonnes
 	int** app_garde_bool=(int**)malloc(sizeof(int*)*(capacity+1)); //case vaut 1 si l'objet est gardé
 	Objet** app_garde=(Objet**)malloc(sizeof(Objet*)*(capacity+1));
@@ -200,7 +201,7 @@ int optimisationSemaine(Liste *maison,Day tab_day[], double *nb_panneaux)
 	objet=maison->tete;
 		for(int t=1;t<=nb_elements;t++)
 		{
-		conso=(int)floor(objet->conso_WH)*7; //consommation de l'objet sur une semaine
+		conso=(int)floor(objet->conso_WH)*SEMAINE; //consommation de l'objet sur une semaine
 			if(conso<=b)
 			{
 				V[b][t]=max(V[b][t-1],V[b-conso][t-1]+objet->priorite);
@@ -218,7 +219,7 @@ int optimisationSemaine(Liste *maison,Day tab_day[], double *nb_panneaux)
 		}
 	}
 			
-	printf("Sur une semaine, vous pourriez utiliser :\n");
+	printf("Sur une semaine, vous pourriez aliment grâce à vos panneaux solaires :\n");
 	int k=capacity;
 	for(int t=nb_elements;t>=0;t--)
 	{
@@ -285,7 +286,8 @@ double moyenneJour(Day tab_day[])
 	double moyenne=0;
 	for(int i=0;i<NB_HOUR;i++)
 		moyenne+=tab_day[i].global_ir;
-	moyenne=(moyenne/NB_HOUR); //moyenne de l'irradiation sur un jour en W/m2
+	moyenne=(moyenne/NB_HOUR); //moyenne de l'irradiation sur un jour en Wh/m2
+	printf("moyenne : %.0lf\n",moyenne);
 	return moyenne;
 }
 		
