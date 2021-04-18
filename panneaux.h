@@ -1,7 +1,7 @@
 /*
 =================================================================================================
 Name : panneaux.h
-Author : Viviana Hirsch
+Author : Viviana Hirsch & Mathilde Pierrat
 Description : Structures et prototypes des fonctions relatives aux panneaux solaires
 =================================================================================================
 */

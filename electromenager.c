@@ -1,7 +1,7 @@
 /*
 =================================================================================================
 Name : electromenager.c
-Author : Viviana Hirsch
+Author : Viviana Hirsch & Mathilde Pierrat
 Description : Fonctions relatives aux appareils électroménagers
 =================================================================================================
 */
