@@ -237,7 +237,7 @@ int retourSurInvestissement(double *nbPanneaux,Month tab_month[],int *surface_to
 	int cout_total=coutInstallation(surface_toit,nbPanneaux);
 	double besoin_an=calculWH(maison,surface_maison,ANNEE);
 	double economie=0;
-	double prod_an=moyenneMois(tab_month)*12*(*nbPanneaux)*P; //production annuelle des panneaux solaires en Wh sur un an 
+	double prod_an=moyenneMois(tab_month)*(*nbPanneaux)*P; //production annuelle des panneaux solaires en Wh sur un an 
 	int an=0;
 	double difference;
 	
@@ -276,7 +276,7 @@ double moyenneMois(Month tab_month[])
 	double moyenne_ir=0;
 	for(int i=0;i<NB_MONTH;i++)
 		moyenne_ir+=tab_month[i].irradiation; 
-	moyenne_ir=moyenne_ir/NB_MONTH*1000; //moyenne de l'irradiation sur un mois en Wh/m2
+	moyenne_ir=moyenne_ir/NB_MONTH*1000; //moyenne de l'irradiation sur un an en Wh/m2
 	return moyenne_ir;
 }
 
