@@ -1,0 +1,11 @@
+Catégorie;Electro;Puissance (W);Consommation (h/jour);Priorité
+Bureau;Ordinateur;100;4.000000;2
+Cuisine;Congélateur;300;0.250000;2
+Cuisine;Plaques de cuisson;2000;0.500000;1
+Cuisine;Lave-vaisselle;1200;1.000000;2
+Cuisine;Réfrigérateur;200;0.250000;2
+Cuisine;Four;3000;0.250000;1
+Entretien;Aspirateur;1500;0.250000;1
+Entretien;Sèche-linge;2500;0.500000;2
+Entretien;Machine à laver;2000;0.500000;2
+Autre;Télévision;300;3.000000;2
