@@ -1,0 +1,38 @@
+Latitude (decimal degrees):	43.455
+Longitude (decimal degrees):	5.471
+Radiation database:	PVGIS-SARAH
+
+Results for:	December
+Slope of plane (deg.):	35
+Azimuth (orientation) of plane (deg.):	0
+time(UTC)		G(i)		Gb(i)		Gd(i)
+00:00		0.0		0.0		0.0
+01:00		0.0		0.0		0.0
+02:00		0.0		0.0		0.0
+03:00		0.0		0.0		0.0
+04:00		0.0		0.0		0.0
+05:00		0.0		0.0		0.0
+06:00		0.0		0.0		0.0
+07:00		0.0		0.0		0.0
+08:00		242.12		173.12		67.26
+09:00		410.72		301.22		105.93
+10:00		520.32		386.04		129.4
+11:00		560.65		416.72		138.5
+12:00		532.78		389.42		138.13
+13:00		477.91		344.71		128.68
+14:00		361.16		259.15		98.9
+15:00		212.15		150.31		60.45
+16:00		0.0		0.0		0.0
+17:00		0.0		0.0		0.0
+18:00		0.0		0.0		0.0
+19:00		0.0		0.0		0.0
+20:00		0.0		0.0		0.0
+21:00		0.0		0.0		0.0
+22:00		0.0		0.0		0.0
+23:00		0.0		0.0		0.0
+
+G(i):  Global irradiance on a fixed plane (W/m2)
+Gb(i): Direct irradiance on a fixed plane (W/m2)
+Gd(i): Diffuse irradiance on a fixed plane (W/m2)
+
+PVGIS (c) European Communities, 2001-2021

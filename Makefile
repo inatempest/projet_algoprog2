@@ -12,3 +12,4 @@ panneaux.o: panneaux.c electromenager.h panneaux.h
 electromenager.o: electromenager.c electromenager.h panneaux.h
 	gcc -Wall -g -c electromenager.c
 
+

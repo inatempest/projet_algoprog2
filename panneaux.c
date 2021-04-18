@@ -176,7 +176,6 @@ int optimisationSemaine(Liste *maison,Day tab_day[], double *nb_panneaux)
 {
 	int nb_elements=maison->nb_elements;
 	int capacity=floor(moyenneJour(tab_day)*7*(*nb_panneaux)*P); //production des panneaux sur une semaine
-	printf("capacity : %d\n",capacity);
 	int** V=(int**)malloc(sizeof(int*)*(capacity+1)); //tableau de capacity+1 colonnes
 	int** app_garde_bool=(int**)malloc(sizeof(int*)*(capacity+1)); //case vaut 1 si l'objet est gardé
 	Objet** app_garde=(Objet**)malloc(sizeof(Objet*)*(capacity+1));
@@ -287,7 +286,6 @@ double moyenneJour(Day tab_day[])
 	for(int i=0;i<NB_HOUR;i++)
 		moyenne+=tab_day[i].global_ir;
 	moyenne=(moyenne/NB_HOUR); //moyenne de l'irradiation sur un jour en Wh/m2
-	printf("moyenne : %.0lf\n",moyenne);
 	return moyenne;
 }
 		

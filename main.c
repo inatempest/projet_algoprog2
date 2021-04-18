@@ -1,7 +1,7 @@
 /*
 =================================================================================================
 Name : main.c
-Author : Viviana Hirsch
+Author : Viviana Hirsch & Mathilde Pierrat
 Description : Main du projet
 =================================================================================================
 */
@@ -42,11 +42,14 @@ int main()
 	
 	
 	//lecture des fichiers Monthly et Daily
-	const char* NOM_FIC_MONTH="Monthlydata_48.582_7.769_SA_2005_2016.csv";
+	const char* NOM_FIC_MONTH="Monthlydata_Gardanne.csv";
+	//const char* NOM_FIC_MONTH="Monthlydata_Dunkerque.csv"; //fichier pour Dunkerque
 	Month data_month[NB_MONTH];
 	lireFicMonth(data_month,NOM_FIC_MONTH);
 
-	const char* NOM_FIC_DAY="Dailydata_48.582_7.769_SA_04_35deg_0deg.csv";
+	const char* NOM_FIC_DAY="Dailydata_Gardanne_avril.csv";
+	//const char* NOM_FIC_DAY="Dailydata_Gardanne_decembre.csv"; //fichier pour décembre
+	//const char* NOM_FIC_DAY="Dailydata_Dunkerque_avril.csv"; //fichier pour avril à Dunkerque
 	Day data_day[NB_HOUR];
 	lireFicDay(data_day,NOM_FIC_DAY);
 	

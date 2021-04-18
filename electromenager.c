@@ -356,9 +356,6 @@ void supprimerObj(Liste *maison)
 	}
 	printf("\nNous n'avons pas trouvé l'appareil à supprimer :(\n");
 }
-
-
-
 /**************************************************************
 
 
@@ -382,7 +379,7 @@ void equiperMaison(Liste tableau[],Liste *maison)
 		printf("3 Afficher mes appareils\n");
 		printf("4 Enregistrer ma liste\n");
 		printf("5 Supprimer un appareil de la liste\n");
-		printf("6 Télécharger son fichier Maison\n");
+		printf("6 Charger son fichier Maison\n");
 		printf("7 Quitter\n");
 		printf("Choix : ");
 		scanf("%d",&choix);
