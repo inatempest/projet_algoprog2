@@ -41,34 +41,46 @@ typedef struct _day
 	double diffuse_ir;
 }Day;
 
+/********************************************************************
 
-void lireFicIr(Month tab[],const char* nomFic);
-void lireFicDay(Day tab[],const char* nomFic);
+Prototypes des fonctions du menu Panneaux photovoltaïques
 
-void afficherTableau(Month tab[]); //pour les tests
+*********************************************************************/
 
-double calculWH(Liste *maison,int *surface_maison,int duree);
-double nbPanneauxDisp(int *surface_toit);
-int coutInstallation(int *surface_toit, double *nbPanneaux);
-int choixDuree();
-double consoWhParTemps(Liste *maison,int *surface_maison,int periode);
-double consoWhEURO(Liste *maison,int *surface_maison, int periode);
+
+void lireFicMonth(Month tab_month[],const char* nomFic);
+void lireFicDay(Day tab_day[],const char* nomFic);
+void enregistrerRSI(double *nbPanneaux,int *surface_toit,Liste *maison,int *surface_maison,Month tab_month[],Day tab_day[],const char* nomFic);
+
+double calculWH(Liste *maison,int *surface_maison,int duree); //met à jour la conso en Wh de chaque objet et renvoie le total de la consommation en fonction de l'entier duree
+
+double nbPanneauxDisp(int *surface_toit); //nb panneaux max
+double nbPanneauxNecessaires(Month tab_month[],Liste *maison, int *surface_maison, int *surface_toit); //nb panneaux nécessaires
 double saisirNbPanneaux(int *surface_toit);
-int retourSurInvestissement(double *nbPanneaux,Month tab[],int *surface_toit,Liste *maison,int *surface_maison);
-void enregistrerRSI(double *nbPanneaux,int *surface_toit,Liste *maison,int *surface_maison,Month tab[],Day tab_day[],const char* nomFic);
 
-double moyenneMois(Month tableau[]);
-double moyenneJour(Day tab[]);
+int coutInstallation(int *surface_toit, double *nbPanneaux);
+int optimisationSemaine(Liste *maison,Day tab_day[], double *nb_panneaux);
+int retourSurInvestissement(double *nbPanneaux,Month tab_month[],int *surface_toit,Liste *maison,int *surface_maison); //renvoie nb d'années avant amortissement
 
-double nbPanneauxNecessaires(Month tab[],Liste *maison, int *surface_maison, int *surface_toit);
+double consoWhParTemps(Liste *maison,int *surface_maison,int periode); //renvoie la conso en kWh sur une période
+double consoWhEURO(Liste *maison,int *surface_maison, int periode); //renvoie la conso en € sur une période
+
+double moyenneMois(Month tab_month[]); //renvoie la moyenne en Wh/m2 sur un mois
+double moyenneJour(Day tab_day[]); //renvoie la moyenne en Wh/m2 sur un jour
+
 void saisirSurfaces(int *surface_maison,int *surface_toit);
-
 int max(int a,int b);
-int optimisationSemaine(Liste *maison,Day tab[], double *nb_panneaux);
 
-void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison,Month tab[],Day tab_day[]);
-void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab[],Day tab_day[]);
+
+/*********************************************************************
+
+Prototypes des menus et sous-menus
+
+**********************************************************************/
+void menu(Liste *liste,int *surface_maison,int *surface_toit,Liste *maison,Month tab_month[],Day tab_day[]);
+void menuPanneau(int *surface_maison,int *surface_toit,Liste *maison,Month tab_month[],Day tab_day[]);
 void menuConso(Liste *maison, int *surface_maison);
+int choixDuree();
 
 #endif
 

@@ -46,22 +46,38 @@ typedef struct
 	}Liste;
 
 
+/*********************************************************************
+
+Prototypes des fonctions du menu Equiper sa maison
+
+**********************************************************************/
+
 
 void initListe(Liste *liste,int cat);
-void lireFicElec(Liste tableau[],const char* nomFic);
-void afficherListeCat(Liste tableau[],int cat);
-void afficherObjet(Objet *objet);
 
-void ajouterObjMaison(Liste *maison,Objet *objet);
-void parcoursCat(Liste tableau[],Liste *maison,int cat);
-void rechercheNom(Liste tableau[],Liste *maison);
-void ajouterObjMan(Liste *maison);
-void afficherListe(Liste *liste);
-void supprimerObj(Liste *maison);
+//spécifique à l'inventaire
+void lireFicElec(Liste tableau[],const char* nomFic);
+void afficherListeCat(Liste tableau[],int cat); //permet de lire une catégorie
+
+//spécifique à la liste maison
+void afficherListe(Liste *liste); 
 void enregistrerListe(Liste *liste,const char* nomFic);
 void lireFicMaison(Liste *maison,const char* nomFic);
 
+//fonctions utilitaires
+void afficherObjet(Objet *objet);
+void parcoursCat(Liste tableau[],Liste *maison,int cat);
+void rechercheNom(Liste tableau[],Liste *maison);
+void ajouterObjMan(Liste *maison);
+void ajouterObjMaison(Liste *maison,Objet *objet);
+void supprimerObj(Liste *maison);
 
+
+/*********************************************************************
+
+Prototypes des menus et sous-menus
+
+**********************************************************************/
 void equiperMaison(Liste tableau[],Liste *maison);
 void rechercheCat(Liste tableau[],Liste *maison);
 #endif
